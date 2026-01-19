@@ -122,10 +122,10 @@ body {
     color: var(--cinza-escuro);             /* Texto geral claro para contraste */
     line-height: 1.6;
     padding-top: 80px;
-    cursor: none; /* Esconde cursor padrão em desktop */
+    /* Cursor será controlado via JS para evitar problemas de performance */
 }
 
-/* Cursor customizado */
+/* Cursor customizado - OTIMIZADO */
 .custom-cursor {
     width: 20px;
     height: 20px;
@@ -134,9 +134,10 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.15s ease;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
+    /* Usar transform ao invés de left/top para melhor performance */
+    will-change: transform;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+    opacity: 0;
 }
 
 .custom-cursor-dot {
@@ -147,9 +148,8 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 10000;
-    transition: transform 0.05s ease;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
+    will-change: transform;
+    opacity: 0;
 }
 
 /* Expande ao hover em links/botões */
@@ -159,15 +159,11 @@ body.cursor-hover .custom-cursor {
     background-color: rgba(51, 153, 204, 0.2);
 }
 
-/* Restaura cursor padrão em mobile e tablets */
+/* Cursor padrão em mobile e tablets */
 @media (max-width: 1024px) {
-    body {
-        cursor: auto;
-    }
-    
     .custom-cursor,
     .custom-cursor-dot {
-        display: none;
+        display: none !important;
     }
 }
 
