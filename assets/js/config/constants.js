@@ -28,10 +28,10 @@ export const CONFIG = {
         LINE_COLOR_OPACITY: 0.2
     },
     
-    // Cursor Customizado (OTIMIZADO)
+    // Cursor Customizado (OTIMIZADO E REFATORADO)
     CURSOR: {
-        LAG_FACTOR: 0.2, // Aumentado de 0.15 para mais suavidade
-        DOT_LAG_FACTOR: 0.6, // Aumentado de 0.5
+        LAG_FACTOR: 0.2, // Suavização do cursor principal
+        DOT_LAG_FACTOR: 0.6, // Suavização do dot central (menos lag)
         SIZE: 20,
         DOT_SIZE: 5,
         HOVER_SIZE: 40,
@@ -62,5 +62,7 @@ export const SELECTORS = {
     heroTitle: '.hero-text h1',
     heroSubtitle: '.hero-text h2',
     revealElements: '.about-text, .project-card, .section-title',
-    buttons: '.btn'
+    buttons: '.btn',
+    // Elementos interativos para o cursor (EXCLUINDO .highlight)
+    interactiveElements: 'a:not(.highlight), button, .btn, .project-card, input, textarea, select'
 };

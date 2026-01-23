@@ -134,10 +134,12 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    /* Usar transform ao invés de left/top para melhor performance */
-    will-change: transform;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    will-change: transform, left, top;
     transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
-    opacity: 0;
+    opacity: 1;
 }
 
 .custom-cursor-dot {
@@ -148,8 +150,11 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 10000;
-    will-change: transform;
-    opacity: 0;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    will-change: transform, left, top;
+    opacity: 1;
 }
 
 /* Expande ao hover em links/botões */
@@ -404,8 +409,10 @@ body.cursor-hover .custom-cursor {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    display: inline-block;
+    display: inline;
     position: relative;
+    cursor: default;
+    pointer-events: none;
 }
 
 /* Efeito Glitch no título (hover) */
@@ -490,12 +497,13 @@ body.cursor-hover .custom-cursor {
 
 .hero-text p {
     font-size: clamp(0.95rem, 2vw, 1.1rem);
-    color: var(--cinza-claro);
+    color: var(--branco); /* Alterado para branco para melhor contraste */
     margin-bottom: clamp(30px, 5vh, 45px);
     max-width: 600px;
     font-weight: 400;
     line-height: 1.7;
     opacity: 0.95;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Botões */
@@ -678,11 +686,12 @@ body.cursor-hover .custom-cursor {
 /* --- 5. Títulos das Seções --- */
 .section-title {
     text-align: center;
-    font-size: 1.8rem;
-    color: var(--azul-escuro);
-    text-shadow: -2px 2px 5px rgba(254, 254, 254, 0.9); /* Sombra azul suave com melhor contraste */
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--azul-claro); /* Alterado de azul-escuro para azul-claro para melhor visibilidade */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Sombra mais forte para contraste */
     margin: 60px 0 30px 0;
     position: relative;
+    font-weight: 700;
 }
 
 .section-title::after {
@@ -756,10 +765,25 @@ body.cursor-hover .custom-cursor {
 .about-text {
     background: #F5F5F5; /* Cinza muito claro para melhor contraste (WCAG AAA: 9.7:1) */
     color: var(--cinza-escuro);     /* Texto escuro para leitura */
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-left: 5px solid var(--azul-escuro);
+    padding: clamp(25px, 4vw, 35px);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border-left: 5px solid var(--azul-claro);
+    line-height: 1.8;
+}
+
+.about-text p {
+    margin-bottom: 18px;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+.about-text strong {
+    color: var(--azul-escuro);
+    font-weight: 700;
 }
 
 /* Cards de Projetos */
@@ -833,7 +857,7 @@ body.cursor-hover .custom-cursor {
 }
 
 .card-content {
-    padding: 20px;
+    padding: 25px;
     color: var(--cinza-escuro); /* Texto escuro dentro do card claro */
     flex: 1;
     display: flex;
@@ -842,20 +866,26 @@ body.cursor-hover .custom-cursor {
 
 .card-content h3 {
     color: var(--azul-escuro);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    font-weight: 700;
 }
 
 .card-content p {
     flex: 1;
     margin-bottom: 15px;
+    line-height: 1.6;
+    color: var(--cinza-escuro);
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .link-repo {
     display: inline-block;
     margin-top: auto;
-    color: #004466; /* Azul mais escuro para melhor contraste (WCAG AAA: 6.2:1) */
+    color: var(--azul-escuro); /* Azul escuro para melhor contraste */
     text-decoration: none;
     font-weight: 700;
+    font-size: 1rem;
     align-self: flex-start;
     transition: all 0.3s ease;
     position: relative;
@@ -882,6 +912,152 @@ body.cursor-hover .custom-cursor {
 @keyframes arrowBounce {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(5px); }
+}
+
+/* --- 7. Media Queries --- */
+
+/* --- SEÇÃO DE CONTATO --- */
+.contact-section {
+    padding: 80px 0;
+    background-color: var(--cinza-escuro); /* Mesma cor de fundo das outras seções */
+    position: relative;
+}
+
+.contact-intro {
+    text-align: center;
+    color: var(--cinza-claro);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(245, 245, 245, 0.98);
+    padding: clamp(30px, 5vw, 50px);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(51, 153, 204, 0.2);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--cinza-escuro);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--cinza-claro);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: white;
+    color: var(--cinza-escuro);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 3px rgba(51, 153, 204, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.btn-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-submit i {
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover i {
+    transform: translateX(5px);
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+}
+
+.form-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+    border: 1px solid #F44336;
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--azul-claro);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.contact-email i {
+    font-size: 1.3rem;
+}
+
+.contact-email a {
+    color: var(--azul-claro);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.contact-email a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--azul-claro);
+    transition: width 0.3s ease;
+}
+
+.contact-email a:hover::after {
+    width: 100%;
 }
 
 /* --- 7. Media Queries --- */
@@ -1020,43 +1196,53 @@ footer {
 }
 
 .socials {
-    display: flex !important;
-    gap: 30px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-top: 15px !important;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
 }
 
 .socials a {
-    color: var(--azul-claro) !important;
-    text-decoration: none !important;
-    font-size: 2.5rem !important;
-    transition: all 0.3s ease !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 50% !important;
-    background-color: rgba(51, 153, 204, 0.2) !important;
-    cursor: pointer !important;
-    position: relative !important;
+    color: var(--azul-claro);
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(51, 153, 204, 0.2);
+    cursor: pointer;
+    position: relative;
 }
 
 .socials a i {
-    font-size: 2.5rem !important;
-    line-height: 1 !important;
-    display: block !important;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: block;
 }
 
-.socials a:hover,
+.socials a:hover {
+    color: var(--branco);
+    background-color: var(--azul-claro);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(51, 153, 204, 0.5);
+}
+
+/* Remover outline padrão do foco */
 .socials a:focus {
-    color: #FFFFFF !important;
-    background-color: #3399CC !important;
-    transform: translateY(-8px) scale(1.2) !important;
-    box-shadow: 0 10px 25px rgba(51, 153, 204, 0.6) !important;
+    outline: none;
+}
+
+/* Mostrar indicador de foco apenas para navegação por teclado */
+.socials a:focus-visible {
+    outline: 2px solid var(--azul-claro);
+    outline-offset: 3px;
 }
 
 .socials a:active {
-    transform: translateY(-4px) scale(1.15) !important;
+    transform: translateY(-3px) scale(1.05);
 }
